@@ -1,0 +1,17 @@
+package seqcalctalk
+
+sourcedir = src
+
+modules = List
+        , Lambda
+        , STLC
+        , SC
+        , LK
+        , LKConn
+        , LKLamApp
+        , KAM
+        , CEK
+        , LKQ
+        , LKT
+
+opts = "--total"
