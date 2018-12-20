@@ -35,11 +35,11 @@ mutual
   shiftCoTerm {is1}       (Mut c)      = Mut $ shiftCmd {is1=Cons2 is1} c
   shiftCoTerm             (AppC t e)   = AppC (shiftTerm t) (shiftCoTerm e)
 
-lam : Term (a::g) b d -> Term g (Imp a b) d
+lam : Term (a::g) b d -> Term g (a~>b) d
 lam t = 
   MatC $ C (shiftTerm t) (CoVar Here)
 
-app : Term g (Imp a b) d -> Term g a d -> Term g b d
+app : Term g (a~>b) d -> Term g a d -> Term g b d
 app t u = 
   Mu $ C (shiftTerm t) 
          (AppC (shiftTerm u) (CoVar Here))
@@ -48,7 +48,7 @@ let_ : Term g a d -> Term (a::g) b d -> Term g b d
 let_ t u = Mu $ C (shiftTerm t) 
                   (Mut $ C (shiftTerm u) (CoVar Here))
 
-callcc : Term g (Imp (Imp a b) a) (a::d) -> Term g a d
+callcc : Term g ((a~>b)~>a) (a::d) -> Term g a d
 callcc f = 
   Mu $ C f
          (AppC 
