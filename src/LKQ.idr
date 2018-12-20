@@ -91,10 +91,10 @@ reduce  _                            = Nothing
 reduceIter : Cmd g d -> (Nat, Maybe (Cmd g d))
 reduceIter c = loop Z c 
   where
-    loop : Nat -> Cmd g d -> (Nat, Maybe (Cmd g d))  
-    loop n c1 with (reduce c1)
-      | Nothing = (n, Just c1)
-      | Just c2 = assert_total $ loop (S n) c2
+  loop : Nat -> Cmd g d -> (Nat, Maybe (Cmd g d))  
+  loop n c1 = case reduce c1 of
+    Nothing => (n, Just c1)
+    Just c2 => assert_total $ loop (S n) c2
 
 embedTm : STLC.Term g a -> Term g a []
 embedTm (Var el)  = Val $ Var el
@@ -109,7 +109,7 @@ extractTerm (C {a} t _) = (a ** t)
 
 runLKQ : STLC.Term g a -> (Nat, Maybe (b ** Term g b []))
 runLKQ t = 
-  let (n,r) = reduceIter (C (embedTm t) Empty) in
+  let (n,r) = reduceIter $ C (embedTm t) Empty in
   (n, extractTerm <$> r)
 
 test : runLKQ Term2 = (4, Just (TestTy ** embedTm Result))

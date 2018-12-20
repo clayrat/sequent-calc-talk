@@ -19,6 +19,7 @@ mutual
     CoVar : Elem a d -> CoTerm g a d
     Mut   : Cmd (a::g) d -> CoTerm g a d
 
+{-
 mutual    
   shiftCmd : IsSubset g g1 -> IsSubset d d1 -> Cmd g d -> Cmd g1 d1    
   shiftCmd is1 is2 (C t e) = C (shiftTerm is1 is2 t) (shiftCoTerm is1 is2 e)
@@ -30,8 +31,8 @@ mutual
   shiftCoTerm : IsSubset g g1 -> IsSubset d d1 -> CoTerm g a d -> CoTerm g1 a d1    
   shiftCoTerm is1 is2 (CoVar el) = CoVar $ ?wat3
   shiftCoTerm is1 is2 (Mut c)    = Mut $ ?wat4
-
-{-    
+-}
+    
 mutual    
   shiftCmd : {auto is1 : IsSubset g g1} -> {auto is2 : IsSubset d d1} -> Cmd g d -> Cmd g1 d1    
   shiftCmd (C t e) = C (shiftTerm t) (shiftCoTerm e)
@@ -43,4 +44,3 @@ mutual
   shiftCoTerm : {auto is1 : IsSubset g g1} -> {auto is2 : IsSubset d d1} -> CoTerm g a d -> CoTerm g1 a d1    
   shiftCoTerm       {is2} (CoVar el) = CoVar $ shift is2 el
   shiftCoTerm {is1}       (Mut c)    = Mut $ shiftCmd {is1=Cons2 is1} c
-  -}

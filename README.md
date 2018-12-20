@@ -2,7 +2,7 @@
 
 Code for the talk.
 
-Modules by their appearance in the talk:
+Modules by their appearance:
 
 * `List` - some properties of lists
 * `Lambda` - untyped lambda calculus
@@ -23,6 +23,3 @@ Modules by their appearance in the talk:
 * [Spiwack, "A dissection of L"](http://assert-false.net/arnaud/papers/A%20dissection%20of%20L.pdf)
 * [Maillard et al, "A preview of a tutorial on polarised L calculi"](http://gallium.inria.fr/~scherer/research/L/tutorial-talk.pdf)
 * [Munch-Maccagnoni, "Syntax and Models of a non-Associative Composition of Programs and Proofs"](http://guillaume.munch.name/papers/#SMAC)
-
-
-
