@@ -35,14 +35,14 @@ mutual
   shiftTerm {is2} (Mu c)  = Mu $ shiftCmd {is2=Cons2 is2} c
 
   shiftValue : {auto is1 : IsSubset g g1} -> {auto is2 : IsSubset d d1} -> Value g a d -> Value g1 a d1    
-  shiftValue {is1}       (Var el)     = Var $ shift is1 el
-  shiftValue {is1} {is2} (MatC c)     = MatC $ shiftCmd {is1=Cons2 is1} {is2=Cons2 is2} c
+  shiftValue {is1}       (Var el) = Var $ shift is1 el
+  shiftValue {is1} {is2} (MatC c) = MatC $ shiftCmd {is1=Cons2 is1} {is2=Cons2 is2} c
 
   shiftCoTerm : {auto is1 : IsSubset g g1} -> {auto is2 : IsSubset d d1} -> CoTerm g a d -> CoTerm g1 a d1    
-  shiftCoTerm       {is2} (CoVar el)   = CoVar $ shift is2 el
-  shiftCoTerm              Empty       = Empty
-  shiftCoTerm {is1}       (Mut c)      = Mut $ shiftCmd {is1=Cons2 is1} c
-  shiftCoTerm             (AppC t e)   = AppC (shiftValue t) (shiftCoTerm e)
+  shiftCoTerm       {is2} (CoVar el) = CoVar $ shift is2 el
+  shiftCoTerm              Empty     = Empty
+  shiftCoTerm {is1}       (Mut c)    = Mut $ shiftCmd {is1=Cons2 is1} c
+  shiftCoTerm             (AppC t e) = AppC (shiftValue t) (shiftCoTerm e)
 
 mutual
   subst : Cmd (a::g) d -> Value g a d -> Cmd g d

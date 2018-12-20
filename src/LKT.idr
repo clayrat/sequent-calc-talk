@@ -31,13 +31,13 @@ mutual
   shiftCmd (C t e) = C (shiftTerm t) (shiftCoTerm e)
 
   shiftTerm : {auto is1 : IsSubset g g1} -> {auto is2 : IsSubset d d1} -> Term g a d -> Term g1 a d1    
-  shiftTerm {is1}       (Var el)   = Var $ shift is1 el
-  shiftTerm       {is2} (Mu c)     = Mu $ shiftCmd {is2=Cons2 is2} c
-  shiftTerm {is1} {is2} (MatC c)   = MatC $ shiftCmd {is1=Cons2 is1} {is2=Cons2 is2} c
+  shiftTerm {is1}       (Var el) = Var $ shift is1 el
+  shiftTerm       {is2} (Mu c)   = Mu $ shiftCmd {is2=Cons2 is2} c
+  shiftTerm {is1} {is2} (MatC c) = MatC $ shiftCmd {is1=Cons2 is1} {is2=Cons2 is2} c
 
   shiftCoTerm : {auto is1 : IsSubset g g1} -> {auto is2 : IsSubset d d1} -> CoTerm g a d -> CoTerm g1 a d1    
   shiftCoTerm       (CoVal cv) = CoVal $ shiftCoValue cv
-  shiftCoTerm {is1} (Mut c)   = Mut $ shiftCmd {is1=Cons2 is1} c
+  shiftCoTerm {is1} (Mut c)    = Mut $ shiftCmd {is1=Cons2 is1} c
 
   shiftCoValue : {auto is1 : IsSubset g g1} -> {auto is2 : IsSubset d d1} -> CoValue g a d -> CoValue g1 a d1    
   shiftCoValue {is2} (CoVar el) = CoVar $ shift is2 el
@@ -83,10 +83,10 @@ mutual
   cosubstCoValue  Empty             ct = Empty
 
 reduce : Cmd g d -> Maybe (Cmd g d)
-reduce (C  t         (Mut c)            ) = Just $ subst c t
-reduce (C (Mu c)     (CoVal  cv)        ) = Just $ cosubst c cv
-reduce (C (MatC c)   (CoVal (AppC t cv))) = Just $ cosubst (subst c (shiftTerm t)) (shiftCoValue cv)
-reduce  _                                 = Nothing
+reduce (C  t       (Mut c)            ) = Just $ subst c t
+reduce (C (Mu c)   (CoVal  cv)        ) = Just $ cosubst c cv
+reduce (C (MatC c) (CoVal (AppC t cv))) = Just $ cosubst (subst c (shiftTerm t)) (shiftCoValue cv)
+reduce  _                               = Nothing
 
 reduceIter : Cmd g d -> (Nat, Maybe (Cmd g d))
 reduceIter c = loop Z c 

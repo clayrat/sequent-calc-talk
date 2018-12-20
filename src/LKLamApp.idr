@@ -26,9 +26,9 @@ mutual
   shiftCmd (C t e) = C (shiftTerm t) (shiftCoTerm e)
 
   shiftTerm : {auto is1 : IsSubset g g1} -> {auto is2 : IsSubset d d1} -> Term g a d -> Term g1 a d1    
-  shiftTerm {is1}       (Var el)     = Var $ shift is1 el
-  shiftTerm       {is2} (Mu c)       = Mu $ shiftCmd {is2=Cons2 is2} c
-  shiftTerm {is1} {is2} (MatC c)     = MatC $ shiftCmd {is1=Cons2 is1} {is2=Cons2 is2} c
+  shiftTerm {is1}       (Var el) = Var $ shift is1 el
+  shiftTerm       {is2} (Mu c)   = Mu $ shiftCmd {is2=Cons2 is2} c
+  shiftTerm {is1} {is2} (MatC c) = MatC $ shiftCmd {is1=Cons2 is1} {is2=Cons2 is2} c
 
   shiftCoTerm : {auto is1 : IsSubset g g1} -> {auto is2 : IsSubset d d1} -> CoTerm g a d -> CoTerm g1 a d1    
   shiftCoTerm       {is2} (CoVar el)   = CoVar $ shift is2 el

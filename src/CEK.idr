@@ -39,11 +39,11 @@ stepIter s = loop Z s
 run : Term -> (Nat, Maybe State)
 run t = stepIter $ L t [] []
 
-test00 : run Term0 = (11, Just (R (Cl Result []) []))
+test00 : run Term0 = (11, Just $ R (Cl Result []) [])
 test00 = Refl
 
-test01 : run Term1 = (11, Just (R (Cl Result []) []))
+test01 : run Term1 = (11, Just $ R (Cl Result []) [])
 test01 = Refl
 
-test02 : run Term2 = (11, Just (R (Cl Result []) []))
+test02 : run Term2 = (11, Just $ R (Cl Result []) [])
 test02 = Refl
